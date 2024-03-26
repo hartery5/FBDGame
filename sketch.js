@@ -10,7 +10,7 @@ let name;
 let name_flag;
 let ireleased = true;
 let level = 1;
-let _GLOBTIMER = 30;
+let _GLOBTIMER = 120;
 
 let vectorSelectSound;
 let vectorDeselectSound;

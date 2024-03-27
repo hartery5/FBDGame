@@ -26,9 +26,9 @@ class vector{
     let ny = nr*sin(this.theta+0.5);
     if (typeof this.name === 'string' && this.name.length>0){
       text(this.name.substring(0,1),nx,ny);
-      textSize(8)
+      textSize(12)
       text(this.name.substring(1),nx+5,ny);
-      textSize(12);
+      textSize(16);
       stroke(0);
       strokeWeight(1);
       let py = ny - textAscent();

@@ -63,6 +63,7 @@ button:hover {
   width: 20px;
   left: 4px;
   bottom: 4px;
+  border-color: #FFFFFF;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
@@ -72,14 +73,10 @@ button:hover {
   background-color: #556b2f;
 }
 
-#toggle:focus + .slider {
-  box-shadow: 0 0 1px #556b2f;
-}
-
 #toggle:checked + .slider:before {
-  -webkit-transform: translateX(30px);
-  -ms-transform: translateX(30px);
-  transform: translateX(30px);
+  -webkit-transform: translateX(32px);
+  -ms-transform: translateX(32px);
+  transform: translateX(32px);
 }
 
 /* Rounded sliders */

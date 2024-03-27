@@ -1,7 +1,7 @@
 let vectors = [];
 let startScreenVecs = [];
 let startScreenAngs = [];
-let nStart = 256;
+let nStart = 128;
 let studans = [];
 let i_active;
 let Npos = 15;
@@ -12,12 +12,15 @@ let ireleased = true;
 let level = 1;
 let _GLOBTIMER = 120;
 
+// Sounds
 let vectorSelectSound;
 let vectorDeselectSound;
+let scorePointSound;
+let d3Sound;
+let f3Sound;
+let a3Sound;
+let d4Sound;
 
-let accessibility_timer = true;
-let accessibility_health = true;
-let costs = true;
 
 let img;
 let questions = [];
@@ -68,11 +71,17 @@ function preload(){
   imgs[imgs.length] = loadImage('assets/img/accelerom2.gif');
   imgs[imgs.length] = loadImage('assets/img/piano1.gif');
   imgs[imgs.length] = loadImage('assets/img/block01-02.gif');
+  imgs[imgs.length] = loadImage('assets/img/Curzon6.6.gif')
   
   heartImage= loadImage('assets/img/heart.png');
 
   vectorSelectSound = loadSound('assets/sounds/vectorSelect.mp3');
   vectorDeselectSound = loadSound('assets/sounds/vectorDeselect.mp3');
+  scorePointSound = loadSound('assets/sounds/scorePoint.mp3');
+  d3Sound = loadSound('assets/sounds/D3.mp3');
+  a3Sound = loadSound('assets/sounds/A3.mp3');
+  f3Sound = loadSound('assets/sounds/F3.mp3');
+  d4Sound = loadSound('assets/sounds/D4.mp3');
 }
 
 function setup() {
@@ -103,6 +112,14 @@ function setup() {
                           'When pushed, a rigid object will push back with equal force.']);
   questions.push(question3);
 
+  question4 = new question('Curzon6.6.gif',
+                          'Two blocks of unequal mass (m2>m1) are suspended by a string around a pulley. Draw a FBD for the m2 as it accelerates.',
+                          [[6,10]],
+                          ['Only forces acting ON the system are included in an FBD',
+                          'If an object is accelerating, it must have a net force in the direction of acceleration.',
+                          'If mass 2 is heavier than mass 1, in which direction will it accelerate?']);
+  questions.push(question4);
+
   for (let i = 0; i<questions.length; i++){
     questionIX.push(i);
   }
@@ -122,12 +139,12 @@ function setup() {
   
   createCanvas(800, 600);
   for (let k=0;k<imgs.length;k++){
-    imgs[k].resize(width/2-50,height/2-100);
+    imgs[k].resize(width/2-60,height/2-120);
   }
   heartImage.resize(25,0);
   
   checkans_button = createButton('Submit!');
-  checkans_button.position(3*width/4-30, height-50);
+  checkans_button.position(3*width/4-30, height-75);
 
   checkans_button.mousePressed(() => {
     let resp = currentquestion.check_ans(studans);
@@ -210,7 +227,7 @@ function setup() {
   });
   
   hint_button = createButton('Hint ($'+nf(hintCost,0,2)+')');
-  hint_button.position(20,height/2-35);
+  hint_button.position(35,height/2-45);
   hint_button.hide();
   
   hint_button.mousePressed(() => {
@@ -224,7 +241,7 @@ function setup() {
   });
   
   time_button = createButton('+30s ($'+nf(timeCost,0,2)+')');
-  time_button.position(135,height/2-35);
+  time_button.position(155,height/2-45);
   time_button.hide();
   time_button.mousePressed(() => {
     if (PLAYER.money>=timeCost){
@@ -234,7 +251,7 @@ function setup() {
   });
   
   heart_button = createButton('+1 heart ($'+nf(heartCost,0,2)+')');
-  heart_button.position(250,height/2-35);
+  heart_button.position(270,height/2-45);
   heart_button.hide();
   heart_button.mousePressed(() => {
   if (PLAYER.money>=heartCost && PLAYER.health<=5){
@@ -266,7 +283,7 @@ function setup() {
     let angle =i*2*PI/Nang;
     
     let mdx = 3*width/4-75;
-    let mdy = 75;
+    let mdy = 90;
     let md_vec = new vector(mdx,mdy,40,angle,'');
     vectors.push(md_vec)
   }
@@ -274,7 +291,7 @@ function setup() {
   for (let i = 0; i<Nang; i++){
     let angle = i*2*PI/Nang;
     let lgx = 3*width/4+75;
-    let lgy = 75;
+    let lgy = 90;
     let lg_vec = new vector(lgx,lgy,40*sqrt(2),angle,'');
     vectors.push(lg_vec);
   }
@@ -294,11 +311,6 @@ function setup() {
   }
   currentquestion.load_key(vectors);
 
-  //studyBox = createCheckbox();
-  //studyBox.value = studyMode;
-  //studyBox.style('background-color: #FFFFFF;');
-  //studyBox.style('border: solid white;');
-
   tutorialBoxLabel = createElement(
     'label',
     `<input id="toggle" type="checkbox" />
@@ -313,7 +325,7 @@ function setup() {
   gameModeSelect.option('Study');
   gameModeSelect.option('Score');
   gameModeSelect.option('Test');
-  gameModeSelect.selected('Practice Mode');
+  gameModeSelect.selected('Score');
   gameModeSelect.style('font-family: VT323');
   gameModeSelect.style('font-size: 20px');
 }
@@ -325,8 +337,16 @@ function draw() {
     startScreenVecs[i].show();
     startScreenVecs[i].r.x+=cos(startScreenAngs[i]);
     startScreenVecs[i].r.y+=sin(startScreenAngs[i]);
-    startScreenVecs[i].r.x=startScreenVecs[i].r.x % width;
-    startScreenVecs[i].r.y=startScreenVecs[i].r.y % height;
+    if (startScreenVecs[i].r.x>width){
+      startScreenVecs[i].r.x=0;
+    } else if (startScreenVecs[i].r.x<0){
+      startScreenVecs[i].r.x=width;
+    } 
+    if (startScreenVecs[i].r.y>height){
+      startScreenVecs[i].r.y=0;
+    } else if (startScreenVecs[i].r.y<0){
+      startScreenVecs[i].r.y=height;
+    } 
   }
 
   push();
@@ -363,7 +383,6 @@ function draw() {
     push();
     textSize(40);
     textStyle(BOLD);
-    textAlign(CENTER,CENTER)
     fill(0)
     text('Level Complete!', 200-2, 150+2);
     fill(64,79,36)
@@ -371,10 +390,19 @@ function draw() {
     pop();
     
     let score = gameTIMER*PLAYER.health*level;
+
+    let soundCheck = [2,4,6,14,16]
+    for (let i=0; i<soundCheck.length; i++){
+      if (winCounter==15*soundCheck[i]){
+        scorePointSound.play();
+      }
+    }
+
     
     push();
     textFont('VT323')
     textStyle(BOLD);
+    textSize(18);
     let dispspeed = 15;
     if (winCounter>dispspeed){
       text("Seconds Remaining: ", 200, 200);
@@ -466,7 +494,7 @@ function draw() {
     fill(255,255,255,255);
     stroke(0);
     strokeWeight(3);
-    rect(10,10,width-20,height-20,20);
+    rect(20,20,width-40,height-40,20);
     pop();
 
     if (PLAYER.health==0 || gameTIMER==0){
@@ -496,19 +524,20 @@ function draw() {
     }
     
     // Show Problem
-    image(imgs[ii], 25,height-imgs[ii].height-25);
+    image(imgs[ii], 40,height-imgs[ii].height-25);
     push();
-    textFont('VT323');
-    textSize(14);
+    textFont('Calibri');
+    textSize(16);
     textWrap(WORD);
-    text(questions[iq].description, 15, height/2+30,width/2-30);
+    textLeading(14);
+    text(questions[iq].description, 30, height/2+15,width/2-60);
     pop();
     
     push();
     fill(85,107,47);
     stroke(0);
     strokeWeight(2);
-    rect(10,10,width/2,height/2,20)
+    rect(20,20,width/2-20,height/2-20,20)
     pop();
     
     if (frameCounter % 60 == 0 && gameTIMER>0){
@@ -530,7 +559,7 @@ function draw() {
     text(nf(gameTIMER),150,65);
     text('$'+nf(PLAYER.money,0,2),150,115);
     textWrap(WORD)
-    textSize(12);
+    textSize(16);
     text(playerFeedback,width/2+20,height/2-20,width/2-40);
     pop();
     
@@ -543,9 +572,10 @@ function draw() {
         hintText += '\n'
       }
       push();
-      textWrap(WORD)
-      textSize(12);
-      text(hintText,75,130,width/2-75);
+      textWrap(WORD);
+      textLeading(12)
+      textSize(16);
+      text(hintText,75,128,width/2-75);
       pop();
     }
     
@@ -555,7 +585,7 @@ function draw() {
     
     push();
     textFont('VT323')
-    text('Click on arrows above to add to FBD below.', width/2+50, height/2-25);
+    text('Click on arrows above to add to FBD below.', width/2+50, height/2-100);
     pop();
     for (let i = 0; i<vectors.length; i++){
       vectors[i].show();

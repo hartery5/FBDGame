@@ -16,10 +16,13 @@ let _GLOBTIMER = 120;
 let vectorSelectSound;
 let vectorDeselectSound;
 let scorePointSound;
+let FBDGameThemeSound;
 let d3Sound;
 let f3Sound;
 let a3Sound;
 let d4Sound;
+let muteState = false;
+let snds = [];
 
 
 let img;
@@ -78,13 +81,8 @@ function preload(){
   
   heartImage= loadImage('assets/img/heart.png');
 
-  vectorSelectSound = loadSound('assets/sounds/vectorSelect.mp3');
-  vectorDeselectSound = loadSound('assets/sounds/vectorDeselect.mp3');
-  scorePointSound = loadSound('assets/sounds/scorePoint.mp3');
-  d3Sound = loadSound('assets/sounds/D3.mp3');
-  a3Sound = loadSound('assets/sounds/A3.mp3');
-  f3Sound = loadSound('assets/sounds/F3.mp3');
-  d4Sound = loadSound('assets/sounds/D4.mp3');
+  FBDGameThemeSound = createAudio('assets/sounds/FBDGameTheme.mp3');
+  snds.push(FBDGameThemeSound);
 }
 
 function setup() {
@@ -355,10 +353,13 @@ function setup() {
   gameModeSelect.selected('Score');
   gameModeSelect.style('font-family: VT323');
   gameModeSelect.style('font-size: 20px');
+
+  
 }
 
 function draw() {
   background(85,107,47);
+
 
   for (let i=0; i<nStart; i++){
     startScreenVecs[i].show();
@@ -381,6 +382,17 @@ function draw() {
   noStroke();
   rect(0,0,width,height);
   pop();
+
+  if (muteState){
+    for (let i = 0; i<snds.length;i++){
+      snds[i].setVolume(0);
+      if (i==snds.length-1){
+        snds[i].stop()
+      }
+    } 
+  } else {
+    FBDGameThemeSound.loop();
+  }
 
   
   if (levelcomplete){
@@ -418,12 +430,7 @@ function draw() {
     
     let score = gameTIMER*PLAYER.health*level;
 
-    let soundCheck = [2,4,6,14,16]
-    for (let i=0; i<soundCheck.length; i++){
-      if (winCounter==15*soundCheck[i]){
-        scorePointSound.play();
-      }
-    }
+
 
     
     push();
@@ -700,7 +707,6 @@ function draw() {
 function mousePressed() {
   if (levelplaying){
     if ((i_active<(2*Nang)) && (!name_flag) && (isActive)){
-      vectorSelectSound.play();
       let avec = new vector(3*width/4,3*height/4,vectors[i_active].vmag,vectors[i_active].theta);
       vectors.push(avec);
       studans.push(avec);
@@ -708,7 +714,6 @@ function mousePressed() {
       name_flag = true;
       ireleased = false;
     } else if ((ireleased) && (!name_flag) && (isActive)) {
-      vectorDeselectSound.play();
       let ai = studans.indexOf(vectors[i_active]);
       studans.splice(ai,1)
       vectors.splice(i_active,1);
@@ -722,7 +727,6 @@ function mousePressed() {
 function touchStarted() {
   if (levelplaying){
     if ((i_active<(2*Nang)) && (!name_flag) && (isActive)){
-      vectorSelectSound.play();
       let avec = new vector(3*width/4,3*height/4,vectors[i_active].vmag,vectors[i_active].theta);
       vectors.push(avec);
       studans.push(avec);
@@ -730,7 +734,6 @@ function touchStarted() {
       name_flag = true;
       ireleased = false;
     } else if ((ireleased) && (!name_flag) && (isActive)) {
-      vectorDeselectSound.play();
       let ai = studans.indexOf(vectors[i_active]);
       studans.splice(ai,1)
       vectors.splice(i_active,1);

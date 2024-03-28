@@ -123,5 +123,13 @@ Why only code one solution for this problem? We typically teach students that $0
 [[0,2,4,6]]
 ```
 
+## Credits
+The current repository ships with images created by LON-CAPA:
+https://www.lon-capa.org/index.html
+"The LON-CAPA software is freely available and free (GNU General Public License), and may be modified and adapted. under a GNU Public license."
+https://s10.lite.msu.edu/adm/help/What_Is_LON-CAPA.hlp#What_Is_LON_CAPA
+
+These will slowly be replaced, mostly due to issues resizing. All other assets were created by Sean Hartery.
+
 
 

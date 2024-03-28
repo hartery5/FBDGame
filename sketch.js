@@ -71,7 +71,10 @@ function preload(){
   imgs[imgs.length] = loadImage('assets/img/accelerom2.gif');
   imgs[imgs.length] = loadImage('assets/img/piano1.gif');
   imgs[imgs.length] = loadImage('assets/img/block01-02.gif');
-  imgs[imgs.length] = loadImage('assets/img/Curzon6.6.gif')
+  imgs[imgs.length] = loadImage('assets/img/Curzon6.6.gif');
+  imgs[imgs.length] = loadImage('assets/img/B1.jpg')
+  imgs[imgs.length] = loadImage('assets/img/B1.jpg')
+  imgs[imgs.length] = loadImage('assets/img/elevator.1.gif')
   
   heartImage= loadImage('assets/img/heart.png');
 
@@ -120,11 +123,35 @@ function setup() {
                           'If mass 2 is heavier than mass 1, in which direction will it accelerate?']);
   questions.push(question4);
 
+  question5 = new question('B1.gif',
+                          'Two blocks (B & C) are pushed with force, F2, causing them to accelerate with an acceleration, a2. Ignoring any friction, draw a FBD for block C.',
+                          [[0,12,10,14],[0,12,2,6]],
+                          ['Only forces acting ON the system are included in an FBD',
+                          'If an object is accelerating, it must have a net force in the direction of acceleration.',
+                          'If block C pushes on block B, block B must push on block C!']);
+  questions.push(question5);
+
+  question6 = new question('B1.gif',
+                          'Two blocks (B & C) are pushed with force, F2, causing them to accelerate with an acceleration, a2. Ignoring any friction, draw a FBD for block B.',
+                          [[12,10,14],[12,2,6],[4,10,14],[4,2,6]],
+                          ['Only forces acting ON the system are included in an FBD',
+                          'If an object is accelerating, it must have a net force in the direction of acceleration.',
+                          'If block C pushes on block B, block B must push on block C!']);
+  questions.push(question6);
+
+  question7 = new question('elevator1.gif',
+                          'A person is inside of an elevator, traveling upwards with velocity, v. The elevator is also accelerating, as shown by the vector, a. Draw a FBD for the person.',
+                          [[2,14]],
+                          ['Only forces acting ON the system are included in an FBD',
+                          'If an object is accelerating, it must have a net force in the direction of acceleration.']);
+  questions.push(question7);
+
   for (let i = 0; i<questions.length; i++){
     questionIX.push(i);
   }
   
   iqi = int(random(0,questionIX.length)); // random
+  iqi = 6
   iq = questionIX[iqi];
   ii = iq;
   currentquestion = questions[iq];
@@ -692,7 +719,44 @@ function mousePressed() {
   }
 }
 
+function touchStarted() {
+  if (levelplaying){
+    if ((i_active<(2*Nang)) && (!name_flag) && (isActive)){
+      vectorSelectSound.play();
+      let avec = new vector(3*width/4,3*height/4,vectors[i_active].vmag,vectors[i_active].theta);
+      vectors.push(avec);
+      studans.push(avec);
+      i_active = vectors.length-1;
+      name_flag = true;
+      ireleased = false;
+    } else if ((ireleased) && (!name_flag) && (isActive)) {
+      vectorDeselectSound.play();
+      let ai = studans.indexOf(vectors[i_active]);
+      studans.splice(ai,1)
+      vectors.splice(i_active,1);
+
+      name_flag = false;
+      ireleased = true;
+    }
+  }
+}
+
 function mouseReleased(){
+  if (levelplaying){
+    if (mouseY<400){
+    if (name_flag){
+      name.position(width/2+150,height/2+25);
+      name.show();
+      ireleased = false;
+    } else {
+      name.hide();
+      ireleased = true;
+    }
+    }
+  }
+}
+
+function touchEnded(){
   if (levelplaying){
     if (mouseY<400){
     if (name_flag){

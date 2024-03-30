@@ -1,0 +1,261 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{parskip}
+\setlength{\parskip}{12pt}
+\vbadness=30000
+\hbadness=30000
+\sloppy
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\graphicspath{{../assets/img/}}
+\usepackage{float}
+\usepackage[dvipsnames,svgnames,x11names,hyperref]{xcolor}
+\definecolor{forestedgreen}{RGB}{85,107,47}
+\definecolor{backcolour}{RGB}{225,225,225}
+\usepackage[hidelinks,colorlinks=true,allcolors=forestedgreen]{hyperref}
+\let\oldhref\href
+\renewcommand{\href}[2]{\oldhref{#1}{\bfseries#2}}
+\usepackage[left=2.cm,right=2.cm,top=2.cm,bottom=2.cm]{geometry}
+\usepackage{kpfonts}
+\usepackage{stackengine,scalerel}
+\usepackage{calc}
+\newlength\shlength
+\newcommand\xshlongvec[2][0]{\ThisStyle{\setlength\shlength{#1\LMpt}%
+  \stackengine{-5.6\LMpt}{$\SavedStyle#2$}{\smash{$\kern\shlength%
+    \stackengine{\dimexpr 1.3pt+6.25\LMpt}{$\SavedStyle\mathchar"017E$}%
+      {\rule{\widthof{$\SavedStyle#2$}}{\dimexpr.1pt+.5\LMpt}\kern.4\LMpt}{O}{r}{F}{F}{L}\kern-\shlength$}}%
+      {O}{c}{F}{T}{S}}}
+\usepackage{fontspec}
+%\usepackage[labelfont=bf]{captions}
+\setmainfont{Crimson Pro}
+\setmonofont{Consolas}
+\lstdefinestyle{prettycode}{
+  basicstyle=\ttfamily,
+  backgroundcolor=\color{backcolour},
+  aboveskip={0.9\baselineskip},               
+  keepspaces=true,
+}
+\lstset{style=prettycode}
+\setlength{\parindent}{0pt}
+\usepackage[labelfont=bf]{caption}
+
+\usepackage[noindentafter,explicit]{titlesec}
+\titleformat{\section}[block]
+            {\bfseries}
+            {\thesection.}
+            {15pt}
+            {#1}
+\titlespacing*{\section}{0pt}{1\baselineskip}{0\baselineskip} 
+\titleformat{\subsection}[block]
+            {\bfseries}
+            {\thesubsection.}
+            {15pt}
+            {#1}
+\titlespacing*{\subsection}{0pt}{1\baselineskip}{0\baselineskip} 
+\setlength{\belowcaptionskip}{-10pt}
+
+\usepackage{titling}
+\renewcommand{\maketitlehooka}{\bfseries}
+
+\usepackage[titles]{tocloft}
+\setlength{\cftbeforesecskip}{0pt}
+\makeatletter
+\renewcommand{\@cftmaketoctitle}{}
+\makeatother
+\renewcommand{\contentsname}{}
+
+\begin{document}
+\title{Free Body Diagram: The Game}
+\author{Sean Hartery}
+\maketitle
+\fontsize{12pt}{12pt}\selectfont
+\tableofcontents
+
+\section{Overview}
+\emph{Free Body Diagram: The Game} is an educational tool designed to help students create free body diagrams for simple statics \& dynamics problems. It was designed for a university-level, introductory Physics class, \emph{PHYC1310: Physics In \& Around You I} offered at Dalhousie University every Fall semester. It may be suitable for high school students, too, depending on the curriculum. This game was written in p5.Js as a final project for the \emph{Gamification and Game-Based Learning} studio course led by Dr Kate Thompson. Many of the game elements \& aspects of design are owed to the recommended readings in that course.\par 
+
+The express intention of this software is to make learning statics \& dynamics, well... fun! The ability to create a useful free body diagram (FBD) is a fundamental learning objective in the introductory physics curriculum. While it should be the first step in solving any statics \& dynamics problem, students often don't get sufficient practice with this technique on their own. On midterms, this often leads to ill-formed expressions of Newton's Laws and thus unphysical calculations of desired quantities. This software addresses this issue by allowing students to create FBDs with real-time feedback. This tests their understanding of the following forces:
+\begin{itemize}[leftmargin=*,itemsep=-10pt]
+\item weight, $\xshlongvec[1]{F_g}$ or $\xshlongvec[1]{w}$ 
+\item tension, $\xshlongvec[1]{F_T}$ or $\xshlongvec[1]{T}$
+\item normal, $\xshlongvec[1]{F_N}$ or $\xshlongvec[1]{n}$
+\item friction, $\xshlongvec[1]{f_s}$ or $\xshlongvec[1]{f_k}$
+\item generic forces of interaction between objects, e.g. $\xshlongvec[1]{F_{B on C}}$. 
+\end{itemize}
+
+By offering students a gamified sandbox to practice the fundamental skill of constructing a free body diagram, students will develop a much more solid foundation for applying Newton's Laws.\par
+
+\begin{wrapfigure}[42]{r}{8cm}
+    \centering
+    \includegraphics[width=8cm]{studyModeLevelScreen.png}
+    \includegraphics[width=8cm]{scoreModeLevelScreen.png}
+    \includegraphics[width=8cm]{testModeLevelScreen.png}
+    \caption{(top) A potential level in Study Mode. (middle)A potential level in Score Mode. (bottom) A potential level in Test Mode}
+\end{wrapfigure}
+In the present release, each level requires the student to create a valid FBD based on a visual aid and written prompt. Future releases will add levels in which the student is given a completed FBD and must construct a correct expression of Newton's 1st or 2nd law along the y or x-axis based on a selection of magnitudes, signs, and trigonometric functions.\par
+
+To encourage different levels \& styles of play, the software currently has three modes. In \emph{Study}, the student is given many hints \& can take as many attempts at a solution in as much time as they wish -- in this way, the tool is functionally a puzzle. In \emph{Score}, students can shoot for a high score in an arcade-style test of their abilities -- a proper game. Finally, students keen on acing their upcoming statics exam can enter the timed \emph{Test} mode, which provides no hints \& provides just one attempt per question -- a simulation of the test environment. These modes are described in more detail below. Want ot try it out? The current build is active \href{https://hartery5.github.io/FBDGame/}{here}.\par
+
+Lastly, this project is open source. Feel free to download and use in your classroom! I am hoping to gather some data on the game's effectiveness. If you are looking to collaborate, send me an \href{mailto:sean.hartery@dal.ca}{\textbf{e-mail}}.
+
+\section{Modes}
+From the main menu, a student can select one of three modes. For a description of gameplay, see ``How to Play".
+
+\subsection{Study Mode}
+This mode is intended for students who just want to use the application as a learning tool. They will incur no penalties, are not restricted by time limits, and will have all hints available to them.
+
+\subsection{Score Mode}
+This mode is intended for students who want to compete for a high score! The student begins the game with 5 health, \$10, and a 2 minute time limit per question. For each level that the student completes, they will earn the student cash. Cash can be used to purchase health, hints, or time on subsequent levels. The game is over once the student's health reaches zero, or they complete all available questions.
+
+\paragraph{Health}
+Each incorrect answer diminishes the student's health by one. Health can be replenished via the mini-store at a cost of \$5 per heart. Health carries over from level to level.
+
+\paragraph{Hints}
+Hints can be purchased for \$1 each and will be displayed immediately. Hints do not carry over from level to level.\par
+
+\paragraph{Time}
+The student initially begins with two minutes to complete the first level. After each level is completed, the time limit of the subsequent level will be 10 seconds less than the previous, until level 10 is 
+\begin{wrapfigure}[30]{r}{6cm}
+    \centering
+    \includegraphics[width=6cm]{studyModeProgressPanel.png}
+    \includegraphics[width=6cm]{scoreModeProgressPanel.png}
+    \includegraphics[width=6cm]{testModeProgressPanel.png}
+    \caption{The progress panel in Study Mode (top), Score Mode (middle) and Test Mode (bottom).}
+\end{wrapfigure}
+reached. All subsequent levels beyond level 10 will have a time limit of just 20 seconds. Additional time can be purchased for \$0.50 in 30-second increments. Additional time purchased only applies to the current level.\par
+
+\subsection{Test}
+This mode is intended for students who want a simulation of the test environment. In this mode, the student is given 10 minutes to complete 10 random questions. The student is given one attempt per question, with feedback after each level informing the student if they were correct or not. After 10 random questions, the student's "grade" is displayed. The letter grade follows
+\href{https://www.dal.ca/campus_life/academic-support/grades-and-student-records/grade-scale-and-definitions.html}{Dalhousie's Common Undergraduate Grade Scale.}\par
+
+
+\section{How to Play}
+Once the mode is selected, the student can initiate the application via the ``Start!" button. The first level will begin immediately unless ``Start w/ Tutorial" is selected. The tutorial will essentially walk the student through the following description of the game screen. \textbf{Coding the tutorial is still on my to-do list.}\par
+
+\subsection{Progress Panel}
+\paragraph{Study Mode}
+The current level and all hints are displayed. A planned feature is to include a level-select menu, so that students can which level they want to study.\par
+
+\paragraph{Score Mode}
+The current level, timer, student health, and student cash are displayed. Hints will appear as they are purchased. A mini-store appears at the bottom of the progress menu. The mini-store can be used to purchase Hints, Time, or Health. Items will only appear in the store if the student has enough credits.\par
+
+\paragraph{Test Mode}
+Only the current level and timer are displayed.\par
+
+\subsection{Question Panel}
+The prompt consists of a visual aid and a verbal prompt. The visual aid can indicate the direction of net acceleration (if the object is accelerating), known forces, and should label objects when necessary. The prompt states what forces are already known, whether friction can be ignored, whether gravity can be ignored, and which object the student should make an FBD for.\par
+
+\subsection{Vector Panel}
+Based on the question prompt, the student must use the vector roses in the top right-hand of the screen to add forces to the FBD in the bottom right corner of the screen. Every time a student selects a vector, they MUST enter a name for the force before selecting another vector.\par
+
+\subsection{FBD Panel}
+A display of the current FBD constructed by the student. For each vector added to the FBD, the user will be prompted to name the vector. \textbf{The student will be unable to add another vector until the current vector is named!} Once the student is ready to submit their answer, they can click "Submit!". If correct, the game will transition to the Level Complete screen, otherwise generic feedback will be displayed above.\par
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.33\textwidth]{QuestionPanel.png}
+    \includegraphics[width=0.33\textwidth]{vectorPanel.png}
+    \includegraphics[width=0.33\textwidth]{answerPanel.png}
+    \caption{(left) A sample question. (middle) The set of possible solution vectors that the student can select from. (right) A single vector has been added to the FBD. A text entry box allows the student to name the vector.}
+\end{figure}
+
+\section{Brightspace \& D2L Integration}
+Instructors wishing to locally integrate this into their Brightspace (D2L) page can do so as follows:\par
+
+\begin{enumerate}[leftmargin=16pt,noitemsep]
+\item Pull the repository to make a local copy on your computer.
+\item On the Brightspace/D2L page for your course, navigate to Course Admin.
+\item From the Course Admin menu, select ``Manage Files".
+\item Upload the repository to your course files.
+\end{enumerate}
+
+You can now create a local link to the game anywhere in the Content section of your course page:\par
+
+\begin{enumerate}[leftmargin=16pt,noitemsep]
+\item After clicking the Upload/Create button, select ``Add from Manage Files" from the sub-menu that appears.
+\item Use the file viewer to navigate inside the FBDGame folder.
+\item Select ``index.html".
+\end{enumerate}
+
+A link to the game will now be displayed wherever you decided to place it, with the unattractive title ``index.html". I recommend renaming it to ``FBD Game".\par
+
+\textbf{N.B: I am still investigating ways to collect \& store user data (play time, best score, etc.). I am not confident it is possible... so, you'll have to use D2L's native features to track use of the game.}
+
+\section{Custom Questions}
+\subsection{Designing a Question}
+You are restricted to FBDs that can be drawn with the vector roses displayed, so carefully think of questions that can be answered using only these vectors. The larger vector rose is a scaled version of the smaller rose by a factor of $\sqrt{2}$ for the obvious purpose of having the larger rose's vectors at 45 degrees being the sums of the smaller rose's horizontal and vertical vectors. At some stage I will add a larger rose by a factor of 2, but this greatly increases the number of possible solutions for questions.
+
+
+\paragraph{Image Considerations}
+Your image should ideally be 350 px × 200 px to avoid any re-sizing issues. JPEG file format is recommended, but static GIFs and PNGs are permitted, too. If you are including a velocity, force, or acceleration vector, make sure it is unambiguously labelled. If there are multiple similar objects (e.g. a row of three boxes), make sure to label them clearly. Solution vectors are only along the vertical axis, horizontal axis, or 45º relative to those axes, so this should be reflected in the drawing.
+
+\paragraph{Solution Vectors}
+Solution vectors are indexed \textbf{CLOCKWISE} starting with the vector at 0º: 1x vectors: 0 - 7 (inclusive); $\sqrt{2}$x vectors: 8 - 15 (inclusive); e.g., gravity should be represented as the vector 2 or 10.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\textwidth]{solutionVEctors.png}
+    \caption{Solution vectors are indexed as shown above. When programming a question, the solution key must exactly match the indices shown.}
+\end{figure}
+
+\paragraph{Question Prompt}
+Your question prompt should be brief and to the point to avoid display errors, so try to communicate as much information visually as possible. Make sure to specify the system that the student must analyze in the last sentence: ``Draw a FBD of \textbf{X}".
+
+\paragraph{Hints}
+Consider what hints would be helpful for the question. Try not to make these too long, otherwise you will run into display errors.
+
+\subsection{Coding a Question}
+\begin{enumerate}[leftmargin=*,noitemsep]
+\item Place the image in the assets/img folder.
+\item Create a JSON file with your question name, e.g. ``NAME\_OF\_FILE.json", and place it in the ``assets/questions/" folder.
+\item Format your JSON file as follows:
+\begin{lstlisting}
+{
+    "imgPath": "assets/img/NAME_OF_IMAGE.FILETYPE",
+    "description": "A description of your question.",
+    "keys": [[sol1_index1, sol1_index2, ...], 
+            [sol2_index1, sol2_index2, ...], 
+            ...],
+    "hints": ["Hint 1",
+            "Hint 2", 
+            ...]
+}
+\end{lstlisting}
+The entry ``keys" specifies the possible solutions to the problem, where each index is a number from 0 -- 15 matching the vectors specified earlies. Keys must be an array of arrays as multiple solutions are possible. For instance, a person sliding a block across a frictionless floor leading to a constant acceleration to the right could be described by any FBD from the following solution array:
+\begin{lstlisting}
+[[0,2,6],[0,10,14],[8,2,6],[8,10,14]]
+\end{lstlisting}
+In the case of a problem with one solution, e.g. a person sliding a box at constant speed across a floor with friction, ``keys" must still be an array of arrays:
+\begin{lstlisting}
+[[0,4,10,14]]
+\end{lstlisting}
+Why only code one solution for this problem? We typically teach students that 0\textless$\mu$\textless1, so I wouldn't want to accept a solution where $|\xshlongvec{F_n}|=|\xshlongvec{f_k}|$, e.g.:
+\begin{lstlisting}
+[[0,2,4,6]]
+\end{lstlisting}
+\item In the main directory open ``questions.json". This is a simple file with a listing of the current questions. Add the name of your JSON file to the array inside of ``questions.json".
+\end{enumerate}
+
+Note! Any typos in filenames \& paths will result in the program breaking. Error handling is currently very limited.
+
+\section{Credits}
+The current repository ships with images created by \href{https://www.lon-capa.org/index.html}{LON-CAPA}, ``The LON-CAPA software is freely available and free (GNU General Public License), and may be modified and adapted. under a GNU Public license.''\par
+
+These will slowly be replaced, mostly due to issues resizing. All other assets were created by Sean Hartery.
+
+\section{To do (30/03/2024)}
+\begin{enumerate}[leftmargin=*,noitemsep]
+\item Add 2x vectors to solution space. This increases the number of problems that could be solved, but adds solutions to previously coded problems.
+\item Change FBD anchor point from a dot to an octagon. Add three anchor points per side. This will allow progamming of questions with multiple forces in the same direction.
+\item Add more questions. Minimum 20 should be available by Fall 2024.
+\item Check whether site is locally hosted on Brightspace. If so, it may be possible for user to edit a file. This could be a way to log user data, keep a score board, and ultimately connect play to grade. If not, see item 9.
+\item Replace images from LON-CAPA with custom images that fit the size available and correctly show angles at 45 degrees.
+\item In study mode, allow student to view question library and select a question to study from that list.
+\item Rank the difficulty of questions, so that more difficult questions don't show up until later levels in Score mode.
+\item Create a new type of level which requires students to express N1L or N2L along the x or y axis for a given FBD. I am imagining this Duolingo-style, i.e. getting the student to drag vector magnitudes, signs, and trig functions from a word cloud down to an entry line. This seems... hard?
+\item If site is not locally hosted on Brightspace - then must host \& serve site. This becomes headache with authentication, passwords, password security... ideally this stays contained in Brightspace.
+\item Write different music for different modes.
+\end{enumerate}
+
+\end{document}

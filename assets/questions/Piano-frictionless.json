@@ -1,0 +1,7 @@
+{
+    "imgPath": "assets/img/piano1.gif",
+    "description": "A man pushes a piano, causing it to accelerate to the right. The piano experiences no friction with the floor. Draw a FBD for the piano.",
+    "keys": [[2,6,0],[2,6,8],[10,14,0],[10,14,8]],
+    "hints": ["Only forces acting ON the system are included in an FBD",
+    "If an object is accelerating, it must have a net force."]
+}

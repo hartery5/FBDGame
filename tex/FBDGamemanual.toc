@@ -1,0 +1,26 @@
+\contentsline {section}{\numberline {1}Overview}{1}{section.1}%
+\contentsline {section}{\numberline {2}Modes}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Study Mode}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Score Mode}{2}{subsection.2.2}%
+\contentsline {paragraph}{Health}{2}{subsection.2.2}%
+\contentsline {paragraph}{Hints}{2}{subsection.2.2}%
+\contentsline {paragraph}{Time}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Test}{3}{subsection.2.3}%
+\contentsline {section}{\numberline {3}How to Play}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Progress Panel}{3}{subsection.3.1}%
+\contentsline {paragraph}{Study Mode}{3}{subsection.3.1}%
+\contentsline {paragraph}{Score Mode}{3}{subsection.3.1}%
+\contentsline {paragraph}{Test Mode}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Question Panel}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Vector Panel}{3}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}FBD Panel}{3}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Brightspace \& D2L Integration}{4}{section.4}%
+\contentsline {section}{\numberline {5}Custom Questions}{4}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Designing a Question}{4}{subsection.5.1}%
+\contentsline {paragraph}{Image Considerations}{4}{subsection.5.1}%
+\contentsline {paragraph}{Solution Vectors}{4}{subsection.5.1}%
+\contentsline {paragraph}{Question Prompt}{5}{figure.caption.4}%
+\contentsline {paragraph}{Hints}{5}{figure.caption.4}%
+\contentsline {subsection}{\numberline {5.2}Coding a Question}{5}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Credits}{6}{section.6}%
+\contentsline {section}{\numberline {7}To do (30/03/2024)}{6}{section.7}%

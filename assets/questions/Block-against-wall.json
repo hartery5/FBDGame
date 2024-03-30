@@ -1,0 +1,8 @@
+{
+    "imgPath": "assets/img/block_against_wall.png",
+    "description": "A box is pressed up against a wall with sufficient force that it does not slide downwards. Draw a FBD for the box.",
+    "keys": [[8,2,12,6]],
+    "hints": ["Static friction opposes the combined forces(s) along the surface.",
+    "When pushed, a rigid object will push back with equal force.",
+    "The coefficient of friction is smaller than 1 (0 < µ < 1), so |f| < |n|."]
+}

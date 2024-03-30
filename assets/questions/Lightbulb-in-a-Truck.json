@@ -1,0 +1,6 @@
+{
+    "imgPath": "assets/img/bus.png",
+    "description": "A truck accelerates, causing a lightbulb suspended by a string to form an angle of 45 degrees with the vertical. Draw a FBD for the bulb.",
+    "keys": [[2,15]],
+    "hints": ["Aside from w, only an object touching the system can exert a force on the system.","Tension always pulls away from the system along the string.","The net force must point in the direction of acceleration.","There is no force pulling the bulb backwards.","Rigidly connected objects share the same acceleration."]
+}

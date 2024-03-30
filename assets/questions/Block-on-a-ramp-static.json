@@ -1,0 +1,9 @@
+{
+    "imgPath": "assets/img/prob52.gif",
+    "description": "A block is at rest on a ramp. Assuming the angle of the ramp is 45º, draw a FBD for the block.",
+    "keys": [[10,5,7]],
+    "hints": ["A static object must have a net force of zero.",
+            "The normal force is always perpendicular to the plane.",
+            "Gravity is always directed downwards.",
+            "Static friction opposes the net force parallel to the plane from all other forces."]
+}

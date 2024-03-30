@@ -1,0 +1,7 @@
+{
+    "imgPath": "assets/img/elevator.1.gif",
+    "description": "A person is inside of an elevator, traveling upwards with velocity, v. The elevator is also accelerating, as shown by the vector, a. Draw a FBD for the person.",
+    "keys": [[2,14]],
+    "hints": ["Only forces acting ON the system are included in an FBD",
+            "If an object is accelerating, it must have a net force in the direction of acceleration."]
+}

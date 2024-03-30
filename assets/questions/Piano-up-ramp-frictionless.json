@@ -1,0 +1,8 @@
+{
+    "imgPath":"assets/img/piano2.gif",
+    "description":"A man is pushing a piano up a ramp set at 45º. The piano experiences no friction with the ramp. As a result, the piano accelerates up the ramp. Draw a FBD for the piano.",
+    "keys": [[10,5,15]],
+    "hints": ["The normal force is always perpendicular to the surface",
+            "If the object is accelerating in a given direction, it must have a net force in that direction.",
+            "The components of all forces perpendicular to the ramp should sum to zero."]
+}

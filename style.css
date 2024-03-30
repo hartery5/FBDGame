@@ -8,7 +8,7 @@ canvas {
 }
 
 button {
-  background-color: #41571b; /* Green */
+  background-color: #121212; /* Green */
   border: none;
   color: white;
   padding: 8px 8px;
@@ -23,7 +23,7 @@ button {
 }
 
 button:hover {
-  background-color: #04AA6D; /* Green */
+  background-color: #646464; /* Green */
   color: white;
 }
 

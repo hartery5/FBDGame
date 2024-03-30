@@ -1,0 +1,7 @@
+{
+    "imgPath": "assets/img/nprob04.gif",
+    "description": "A small bob is firmly tied via two strings to a post. As the rod is spun on its axis with constant rotational speed, the bob reaches the equilibrium position shown, where θ=45º. Ignoring the weight of the bob, draw its FBD at the moment in time shown.",
+    "keys":[[3,5],[11,13]],
+    "hints": ["The ball has a centripetal acceleration",
+            "Tension always pulls: i) along the rope, and ii) away from the system."]
+}

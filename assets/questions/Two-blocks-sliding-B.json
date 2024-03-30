@@ -1,0 +1,8 @@
+{
+    "imgPath": "assets/img/B1.jpg",
+    "description": "Two blocks (B & C) are pushed with force, F2, causing them to accelerate with an acceleration, a2. Ignoring any friction, draw a FBD for block B.",
+    "keys": [[12,10,14],[12,2,6],[4,10,14],[4,2,6]],
+    "hints": ["Only forces acting ON the system are included in an FBD",
+            "If an object is accelerating, it must have a net force in the direction of acceleration.",
+            "If block C pushes on block B, block B must push on block C!"]
+}

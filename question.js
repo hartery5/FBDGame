@@ -1,9 +1,10 @@
 class question {
-  constructor(impath, description, ans, hints){
-    this.impath = impath;
-    this.description = description;
-    this.keys = ans;
-    this.hints = hints;
+  constructor(data){
+    this.imgPath = data['imgPath'];
+    this.img = loadImage(this.imgPath);
+    this.description = data['description'];
+    this.ans = data['keys'];
+    this.hints = data['hints'];
   }
   
   removeHint(hi){
@@ -12,31 +13,20 @@ class question {
     }
   }
   
-  load_key(vectors){
-    this.ans = [];
-    for (let i=0; i<this.keys.length; i++){
-      let key = this.keys[i]
-      let slist = [];
-      for (let j=0;j<key.length;j++){
-        slist.push(vectors[key[j]]);
-      }
-      this.ans.push(slist);
-    }
-    print(this.ans);
-  }
-  
   check_ans(ans){
+    print("Checking:")
+    print(this.ans)
+    print(ans)
     let flag = false
     let resp = '';
-    print(this.ans[0])
+
     for (let k=0; k<this.ans.length;k++){
       let cans = this.ans[k];
-      print(cans)
       let m = 0;
       for (let i = 0; i<cans.length; i++){
         let csum = 0
         for (let j= 0; j<ans.length; j++){
-          if ((cans[i].vmag==ans[j].vmag) && (cans[i].theta==ans[j].theta)){
+          if ((cans[i]==ans[j])){
             break;
           } else {
             csum += 1;
@@ -48,12 +38,11 @@ class question {
           m+=1;
         }
       }
-      print(m)
       let e = 0;
       for (let i = 0; i<ans.length; i++){
         let csum = 0
         for (let j= 0; j<cans.length; j++){
-          if ((cans[j].vmag==ans[i].vmag) && (cans[j].theta==ans[i].theta)){
+          if (cans[j]==ans[i]){
             break;
           } else {
             csum += 1;
@@ -65,7 +54,6 @@ class question {
           e+=1;
         }
       }
-      print(e)
       if ((m==0) && (e==0)){
         flag = true;
         resp = "Correct!";

@@ -1,7 +1,8 @@
 class player {
-  constructor(health, money){
-    this.health = health;
-    this.money = money;
+  constructor(){
+    this.health = 5;
+    this.money = 10;
     this.currentHints = [];
+    this.ans = [];
   }
 }

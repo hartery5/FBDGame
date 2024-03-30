@@ -1,0 +1,8 @@
+{
+    "imgPath": "assets/img/two_blocks_on_pulleys.png",
+    "description": "Two blocks of unequal mass, A and B, are suspended by a string around a pulley. Block B is heavier than block A. Draw a FBD for B as it accelerates.",
+    "keys": [[6,10]],
+    "hints": ["Only forces acting ON the system are included in an FBD",
+                          "If an object is accelerating, it must have a net force in the direction of acceleration.",
+                          "If mass 2 is heavier than mass 1, in which direction will it accelerate?"]
+}

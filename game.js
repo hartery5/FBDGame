@@ -58,7 +58,7 @@ class game {playerfeed
       // this array as students complete question. This is mainly to avoid re-loading assets.
       this.questionIndexIndex = int(random(0,this.questionIndices.length));
       this.questionIndex = this.questionIndices[this.questionIndexIndex];
-      this.questionIndex = 2;
+      //this.questionIndex = 2;
       this.currentQuestion = this.questions[this.questionIndex];
       if (this.mode=='Study'){
         PLAYER.currentHints = this.currentQuestion.hints;
